@@ -1,0 +1,21 @@
+{
+  "name": "first-fullstack-project",
+  "version": "1.0.0",
+  "description": "Creating my first fullstack project...using all the concepts i learn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MCqueen9500/First-FullStack-Project.git"
+  },
+  "keywords": [],
+  "author": "Krushna Bankar",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MCqueen9500/First-FullStack-Project/issues"
+  },
+  "homepage": "https://github.com/MCqueen9500/First-FullStack-Project#readme"
+}

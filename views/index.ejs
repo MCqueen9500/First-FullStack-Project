@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plot_dekho</title>
+    <link rel="stylesheet" href="/index.css" />
+</head>
+<body>
+    <h3>All Listing</h3>
+   <% for (let el of data) { %>
+        <div class="info">
+            <p><%= el.title %></p>
+            <p><%= el.description %></p>
+            <p><img src='<%= el.image.url %>'></p>
+            <p><%= el.price %></p>
+            <p><%= el.country %></p>
+            <form method="get" action="listing/<%=el._id%>">
+                <button>See More</button>
+            </form>
+        </div>
+   <% } %>
+</body>
+</html>

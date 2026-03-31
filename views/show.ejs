@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plot_dekho</title>
+</head>
+<body>
+   <h3>Plot ID:<%=list._id%></h3>
+   <hr>
+   <div>
+            <p><%= list.title %></p>
+            <p><%= list.description %></p>
+            <p><img src='<%= list.image.url %>'></p>
+            <p> &#x20B9; <%= list.price.toLocaleString("en-IN") %></p>
+            <p><%= list.country %></p>
+   </div>
+</body>
+</html>
