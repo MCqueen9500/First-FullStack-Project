@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/MCqueen9500/First-FullStack-Project/issues"
   },
-  "homepage": "https://github.com/MCqueen9500/First-FullStack-Project#readme"
+  "homepage": "https://github.com/MCqueen9500/First-FullStack-Project#readme",
+  "dependencies": {
+    "method-override": "^3.0.0"
+  }
 }

@@ -8,17 +8,15 @@
 </head>
 <body>
     <h3>All Listing</h3>
+    <form method="get" action="/listing/new">
+        <button>New +</button>
+    </form>
+    <ul>
    <% for (let el of data) { %>
-        <div class="info">
-            <p><%= el.title %></p>
-            <p><%= el.description %></p>
-            <p><img src='<%= el.image.url %>'></p>
-            <p><%= el.price %></p>
-            <p><%= el.country %></p>
-            <form method="get" action="listing/<%=el._id%>">
-                <button>See More</button>
-            </form>
-        </div>
+        
+          <li><a href="listing/<%=el._id%>"><p><%= el.title %></p></a></li>  
+            
    <% } %>
+   </ul>
 </body>
 </html>
