@@ -51,15 +51,47 @@ app.post("/listing",async (req,res)=>{
 app.get("/listing/:id",async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
-    console.log(list);
+    
     res.render('show.ejs',{list}); 
     
 })
 
 // edit and Update route
 
-app.get("/listing/:id/new",(req,res)=>{
+app.get("/listing/:id/edit",async (req,res)=>{
     let {id} = req.params;
-    const list = listing.findById(id);
+    const list = await listing.findById(id);
     res.render('edit.ejs',{list})
+})
+
+app.put('/listing/:id',async (req,res)=>{
+    let list = await req.body.new;
+    let {id} = req.params;
+    let obj = {
+        title: list.title,
+        description: list.description,
+        image: {
+                filename: "listingimage",
+                url: list.image,
+               },
+        price: list.price,
+        location: list.location,
+        country: list.country,
+     }
+    await listing.findByIdAndUpdate(id,obj).then((res)=>{
+        console.log("success");
+    }).catch((err)=>{
+        console.log(err);
+    })
+   
+    res.redirect(`/listing/${id}`)
+})
+
+// delete route
+
+app.delete("/listing/:id",async (req,res)=>{
+    let {id} = req.params;
+    let deletedList = await listing.findByIdAndDelete(id);
+    console.log(deletedList);
+    res.redirect("/listing")
 })

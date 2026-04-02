@@ -10,10 +10,17 @@
    <hr>
    <div>
             <p><%= list.title %></p>
-            <p><%= list.description %></p>
+            <p><%= list.discription %></p>
             <p><img src='<%= list.image.url %>'></p>
-            <p> &#x20B9; <%= list.price.toLocaleString("en-IN") %></p>
+            <p> &#x20B9; <%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %></p>
+            <p><%= list.location %></p>
             <p><%= list.country %></p>
    </div>
+   <a href="/listing/<%=list._id%>/edit">Edit Information</a>
+   <br><br>
+   <form method="POST" action="/listing/<%=list._id%>?_method=DELETE">
+    <button>Delet this Listing</button>
+   </form>
+  
 </body>
 </html>
