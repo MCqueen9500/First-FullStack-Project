@@ -4,12 +4,15 @@ const path = require('path')
 const app = express();
 const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/listing');
 const methodOverride = require("method-override")
+const ejsMate = require("ejs-mate")  // help to creates layouts / templates
+
 app.use(methodOverride("_method"))
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
 main().then(() => console.log("DB Connected"));
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,'public')));
+app.engine('ejs',ejsMate)
 
 
 async function main(){
@@ -28,17 +31,18 @@ app.get("/",(req,res)=>{
 app.get("/listing",async (req,res)=>{
     const data = await listing.find();
    
-    res.render('index.ejs', {data})
+    res.render('listings/index.ejs', {data})
     
 })
 
 // new listing add route
 app.get('/listing/new',(req,res)=>{
-    res.render('new.ejs');
+    res.render('listings/new.ejs');
 })
 
 app.post("/listing",async (req,res)=>{
     const newListing = new listing(req.body.new);
+    console.log(req.body.new);
     await newListing.save().then((res)=>{
         console.log('Added');
     }).catch((err)=>{
@@ -52,7 +56,7 @@ app.get("/listing/:id",async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
     
-    res.render('show.ejs',{list}); 
+    res.render('listings/show.ejs',{list}); 
     
 })
 
@@ -61,7 +65,7 @@ app.get("/listing/:id",async (req,res)=>{
 app.get("/listing/:id/edit",async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
-    res.render('edit.ejs',{list})
+    res.render('listings/edit.ejs',{list})
 })
 
 app.put('/listing/:id',async (req,res)=>{
