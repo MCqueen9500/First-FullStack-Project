@@ -2,18 +2,34 @@
 <body>
     <h3>Add New Plot</h3>
     <form method="POST" action="/listing">
-        <input name="new[title]" type="text" placeholder="Enter Type">
-        <br> <br>
-        <textarea name="new[description]" type="text" placeholder="Enter Description"></textarea>
-        <br> <br>
-        <input name="new[image]" type="text" placeholder="Enter URL">
-        <br> <br>
-        <input name="new[price]" type="number" placeholder="Enter Type">
-        <br> <br>
-        <input name="new[country]" type="text" placeholder="Enter Country">
-        <br> <br>
-        <input name="new[location]" type="text" placeholder="Enter Location">
-        <br> <br>
-        <button>ADD</button>
+        <div>
+            <label for="title" class="form-label">Title</label>
+            <input name="new[title]" type="text" placeholder="Enter Type" class="form-control">
+        </div>
+        <div>
+            <label for="description" class="form-label">Description</label>
+            <textarea name="new[description]" type="text" placeholder="Enter Description" class="form-control"></textarea>
+        </div>
+        <div>
+            <label for="new[image]" class="form-label">Enter Image URL</label>
+             <input name="new[image]" type="text" placeholder="Enter URL" class="form-control">
+        </div>
+        <div class="row">
+             <div class="col-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="new[price]" type="number" placeholder="Enter Type" class="form-control">
+        </div>
+        <div class="col-8">
+            <label for="new[country]" class="form-label">Country</label>
+            <input name="new[country]" type="text" placeholder="Enter Country" class="form-control">
+        </div>
+        </div>
+       
+        <div>
+            <label for="new[location]" class="form-label">Location</label>
+            <input name="new[location]" type="text" placeholder="Enter Location" class="form-control">
+        </div>
+        <button class="btn btn-dark">ADD</button>
     </form>
 </body>
+
