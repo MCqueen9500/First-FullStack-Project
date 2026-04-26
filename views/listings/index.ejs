@@ -1,22 +1,22 @@
 <% layout('layouts/boilerplate') %>
 
-        <h3>All Listing</h3>
-        <!-- <form method="get" action="/listing/new">
+    <h3>All Listing</h3>
+    <!-- <form method="get" action="/listing/new">
         <button>New +</button>
     </form> -->
     <div class="card-contaner">
-            <% for (let el of data) { %>
+        <% for (let el of data) { %>
             <a href="/listing/<%= el._id %>" class="show-tag">
-                <div class="card" style="width: 18rem;">
+                <div class="card card-list listing-card" style="width: 18rem;">
                     <img src="<%= el.image.url %>" class="card-img-top" alt="goon">
                     <div class="card-body">
                         <p class="card-text"> <b>
                                 <%= el.title %>
                             </b> <br>
-                           &#x20B9; <%= el.price ? el.price.toLocaleString("en-IN") : "N/A" %>
+                            &#x20B9; <%= el.price ? el.price.toLocaleString("en-IN") : "N/A" %>
                         </p>
                     </div>
                 </div>
-                </a>
-                <% } %>
+            </a>
+            <% } %>
     </div>

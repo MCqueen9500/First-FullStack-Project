@@ -1,35 +1,58 @@
 <% layout('layouts/boilerplate') %>
-<body>
-    <h3>Add New Plot</h3>
-    <form method="POST" action="/listing">
-        <div>
-            <label for="title" class="form-label">Title</label>
-            <input name="new[title]" type="text" placeholder="Enter Type" class="form-control">
-        </div>
-        <div>
-            <label for="description" class="form-label">Description</label>
-            <textarea name="new[description]" type="text" placeholder="Enter Description" class="form-control"></textarea>
-        </div>
-        <div>
-            <label for="new[image]" class="form-label">Enter Image URL</label>
-             <input name="new[image]" type="text" placeholder="Enter URL" class="form-control">
-        </div>
-        <div class="row">
-             <div class="col-4">
-            <label for="price" class="form-label">Price</label>
-            <input name="new[price]" type="number" placeholder="Enter Type" class="form-control">
-        </div>
-        <div class="col-8">
-            <label for="new[country]" class="form-label">Country</label>
-            <input name="new[country]" type="text" placeholder="Enter Country" class="form-control">
-        </div>
-        </div>
-       
-        <div>
-            <label for="new[location]" class="form-label">Location</label>
-            <input name="new[location]" type="text" placeholder="Enter Location" class="form-control">
-        </div>
-        <button class="btn btn-dark">ADD</button>
-    </form>
-</body>
 
+    <body>
+
+        <div class="row col-8 mx-auto">
+            <h3>Add New Plot</h3>
+            <form method="POST" action="/listing" class="needs-validation" novalidate>
+                <div>
+                    <label for="title" class="form-label">Title</label>
+                    <input name="new[title]" type="text" placeholder="Enter Type" class="form-control" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter title
+                    </div>
+                </div>
+                <div>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="new[description]" type="text" placeholder="Enter Description" class="form-control"
+                        required></textarea>
+                    <div class="invalid-feedback">
+                        Please Write a breif Description
+                    </div>
+                </div>
+                <div>
+                    <label for="new[image]" class="form-label">Enter Image URL</label>
+                    <input name="new[image]" type="text" placeholder="Enter URL" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input name="new[price]" type="number" placeholder="Enter Type" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please enter rent.
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="new[country]" class="form-label">Country</label>
+                        <input name="new[country]" type="text" placeholder="Enter Country" class="form-control"
+                            required>
+                        <div class="invalid-feedback">
+                            Please Enter Country
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="new[location]" class="form-label">Location</label>
+                    <input name="new[location]" type="text" placeholder="Enter Location" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please Enter Location
+                    </div>
+                </div>
+                <button class="btn btn-dark">ADD</button>
+        </div>
+        </form>
+    </body>

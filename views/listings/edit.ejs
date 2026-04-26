@@ -1,20 +1,61 @@
 <% layout('layouts/boilerplate') %>
-<body>
-    <h3>Edit Information</h3>
-   <form method="POST" action="/listing/<%=list._id%>?_method=PUT">
-        <input name="new[title]" type="text" value="<%=list.title%>">
-        <br> <br>
-        <textarea name="new[description]" type="text" ><%= list.description %></textarea>
-        <br> <br>
-        <input name="new[image]" type="text" value="<%=list.image.url%>">
-        <br> <br>
-        <input name="new[price]" type="number" value="<%=list.price%>">
-        <br> <br>
-        <input name="new[country]" type="text" value="<%=list.country%>">
-        <br> <br>
-        <input name="new[location]" type="text" value="<%=list.location%>">
-        <br> <br>
-        <button>ADD</button>
-        
-       
-</body>
+
+    <body>
+        <div class="row col-8 mx-auto">
+            <h3>Edit Information</h3>
+            <form method="POST" action="/listing/<%=list._id%>?_method=PUT" novalidate class="needs-validation">
+                <div>
+                    <label for="title" class="form-label">Title</label>
+                    <input name="new[title]" type="text" value="<%=list.title%>" class="form-control" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter Tittle.
+                    </div>
+                </div>
+                <div>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="new[description]" type="text" class="form-control"
+                        required><%= list.description %></textarea>
+                    <div class="invalid-feedback">
+                        Please Enter Description.
+                    </div>
+                </div>
+                <div>
+                    <label for="new[image]" class="form-label">Enter Image URL</label>
+                    <input name="new[image]" type="text" value="<%=list.image.url%>" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please Enter Image.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input name="new[price]" type="number" value="<%=list.price%>" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please Enter Price.
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="new[country]" class="form-label">Country</label>
+                        <input name="new[country]" type="text" value="<%=list.country%>" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please Enter Country.
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="new[location]" class="form-label">Location</label>
+                    <input name="new[location]" type="text" value="<%=list.location%>" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please Enter Location pal.
+                    </div>
+                </div>
+                <button class="btn btn-dark change-btn ">Change</button>
+        </div>
+        </form>
+        </div>
+
+    </body>
