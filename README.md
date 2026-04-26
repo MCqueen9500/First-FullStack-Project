@@ -5,3 +5,6 @@ add working routes for basic CRUD operations......
 add the delete route (remaning part from CRUD)
 
 ejs tepmlates done 
+Basic Css is done
+Error handelling middlewares are added....
+Error Handeling Done .. error.ejs Done
