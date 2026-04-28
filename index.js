@@ -8,6 +8,8 @@ const ejsMate = require("ejs-mate")  // help to creates layouts / templates
 const asyncwrap = require('./public/javascript/asyncwrap')
 const error1 = require("./public/javascript/error")
 const SchemaJoi = require('./schema');
+const reviews = require("./collections/reviews");
+const review = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/reviews')
 
 app.use(methodOverride("_method"))
 app.set('view engine','ejs');
