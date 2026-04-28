@@ -1,33 +1,56 @@
 <% layout('layouts/boilerplate') %>
-<body>
-   
-   <div class="show-div">
-      
-      <div class="card show-card" style="width: 18rem;">
-         <h4><b><%= list.title %></b></h4>
-         <div class="img-div">
-            <img src="<%= list.image.url %>" class="card-img-top" alt="...">
+
+
+   <body>
+
+      <div class="show-div">
+
+         <div class="card show-card" style="width: 18rem;">
+            <h4><b>
+                  <%= list.title %>
+               </b></h4>
+            <div class="img-div">
+               <img src="<%= list.image.url %>" class="card-img-top" alt="...">
+            </div>
+
+            <div class="card-body">
+               <div class="description">
+                  <p>
+                     <%= list.description %>
+                  </p>
+               </div>
+               <b> &#x20B9; <%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %></b>
+               <p>
+                  <%= list.location %>
+               </p>
+               <b>
+                  <%= list.country %>
+               </b>
+            </div>
          </div>
-  
-  <div class="card-body">
-            <div class="description"><p><%= list.description %></p></div>
-            <b> &#x20B9; <%= list.price ? list.price.toLocaleString("en-IN") : "N/A" %></b>
-            <p><%= list.location %></p>
-            <b><%= list.country %></b>
-  </div>
-</div>
-<br>
+         <br>
 
-<div class="btn-div">
-   <a href="/listing/<%=list._id%>/edit" class="btn btn-dark change-btn">Edit Information</a>
-   <br><br>
+         <div class="btn-div">
+            <a href="/listing/<%=list._id%>/edit" class="btn btn-dark change-btn">Edit Information</a>
+            <br><br>
 
-   <form method="POST" action="/listing/<%=list._id%>?_method=DELETE">
-    <button class="btn btn-dark">Delet this Listing</button>
-</div>
-   
-
-
-   </form>
-  </div>
-</body>
+            <form method="POST" action="/listing/<%=list._id%>?_method=DELETE">
+               <button class="btn btn-danger">Delet this Listing</button>
+            </form>
+         </div>
+         <hr>
+         <div class="col-4">
+            <form>
+               <label for="rating" class="form-label">Rating</label>
+               <br>
+               <input type="range" id="rating" min="1" max="5" class="form-range">
+               <br>
+               <label for="comment" class="form-label">Comment</label>
+               <br>
+               <input type="textarea" id="comment" class="form-control" style="height: 4rem">
+               <button class="btn btn-outline-primary">Add+</button>
+            </form>
+         </div>
+      </div>
+      <br>
+   </body>
