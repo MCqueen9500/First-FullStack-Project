@@ -5,7 +5,7 @@
 
       <div class="show-div">
 
-         <div class="card show-card" style="width: 18rem;">
+         <div class="show-card" style="width: 18rem;">
             <h4><b>
                   <%= list.title %>
                </b></h4>
@@ -40,17 +40,34 @@
          </div>
          <hr>
          <div class="col-4">
-            <form>
+            <form action="/listing/<%= list._id %>/review" method="POST" class="needs-validation" novalidate>
                <label for="rating" class="form-label">Rating</label>
                <br>
-               <input type="range" id="rating" min="1" max="5" class="form-range">
+               <input type="range" id="rating" min="1" max="5" class="form-range" name="review[rating]">
                <br>
                <label for="comment" class="form-label">Comment</label>
                <br>
-               <input type="textarea" id="comment" class="form-control" style="height: 4rem">
+               <input type="textarea" id="comment" class="form-control" style="height: 4rem" name="review[comment]" required>
+               <div class="invalid-feedback">please add comments</div>
                <button class="btn btn-outline-primary">Add+</button>
             </form>
          </div>
       </div>
       <br>
+      <hr>
+      <div class="show-reviews-contaner ">
+         
+         <% for (let obj of list.reviews) { %>
+         <div class="show-reviews">
+             <div class=" rating"><i><%= obj.rating %> <% for(let i = 0;i<obj.rating;i++){ %><i class="fa-solid fa-star" style="color: rgb(201, 229, 244);"></i> <% } %></i></div>
+            <div class="comment overflow-auto"><b><%= obj.comment %></b></div>
+            <div class=" date"><%= obj.created_at %></div>
+            <form method="post" action="/listing/<%= list._id %>/reviews/<%=obj._id%>?_method=DELETE">
+               <button class="btn btn-dark review-del">Delete</button>
+            </form>
+
+         </div>
+         <hr>
+      <% } %>
+      </div>
    </body>

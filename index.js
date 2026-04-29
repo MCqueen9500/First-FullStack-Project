@@ -7,7 +7,8 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")  // help to creates layouts / templates
 const asyncwrap = require('./public/javascript/asyncwrap')
 const error1 = require("./public/javascript/error")
-const SchemaJoi = require('./schema');
+const {listingSchema} = require('./schema');
+const {reviewSchema} = require('./schema');
 const reviews = require("./collections/reviews");
 const review = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/reviews')
 
@@ -20,7 +21,17 @@ app.use(express.static(path.join(__dirname,'public')));
 app.engine('ejs',ejsMate)
 
 const SchemaValidate = (req,res,next)=>{
-    const result = SchemaJoi.validate(req.body)
+    const result = listingSchema.validate(req.body)
+    if(result.error){
+        throw new error1(500,result.error);
+    }
+    else{
+         next();
+    }
+}
+
+const SchemaValidate_for_review = (req,res,next)=>{
+    const result = reviewSchema.validate(req.body)
     if(result.error){
         throw new error1(500,result.error);
     }
@@ -66,7 +77,7 @@ app.post("/listing",SchemaValidate,asyncwrap(async (req,res)=>{
 // show route give info about perticular listing
 app.get("/listing/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
-    const list = await listing.findById(id);
+    const list = await listing.findById(id).populate('reviews');
     
     res.render('listings/show.ejs',{list}); 
     
@@ -103,12 +114,38 @@ app.put('/listing/:id',SchemaValidate,asyncwrap(async (req,res)=>{
     res.redirect(`/listing/${id}`)
 }))
 
+//review route
+
+app.post('/listing/:id/review',SchemaValidate_for_review,asyncwrap(async (req,res)=>{
+    let {id} = req.params;
+    let list = await listing.findById(id);
+    let rev1 = new review(req.body.review);
+    list.reviews.push(rev1);
+
+    await list.save()
+    await rev1.save()
+    res.redirect(`/listing/${id}`)
+
+}))
+
+// review delete route
+
+app.delete('/listing/:id/reviews/:reviewId',async (req,res)=>{
+    let {id,reviewId} = req.params;
+    await listing.findByIdAndUpdate(id,{$pull : {reviews : reviewId}});
+    await review.findByIdAndDelete(reviewId);
+    res.redirect(`/listing/${id}`)
+
+})
+
 // delete route
 
 app.delete("/listing/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
-    console.log(deletedList);
+    await review.deleteMany({_id : {$in :deletedList.reviews}}).then(()=>{
+        console.log("deleted from reviews also bruhh");
+    })
     res.redirect("/listing")
 }))
 
