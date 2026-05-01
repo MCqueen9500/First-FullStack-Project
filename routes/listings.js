@@ -1,0 +1,95 @@
+const express = require('express');
+const route = express.Router();
+const {listingSchema} = require('../schema');
+const error1 = require("../public/javascript/error")
+const asyncwrap = require('../public/javascript/asyncwrap')
+const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/listing');
+const path = require('path')
+const {reviewSchema} = require('../schema');
+const review = require("../collections/reviews");
+
+
+const SchemaValidate = (req,res,next)=>{
+    const result = listingSchema.validate(req.body)
+    if(result.error){
+        throw new error1(500,result.error);
+    }
+    else{
+         next();
+    }
+}
+
+
+//************************************************* all listing  **************************************************************************************************
+// listing route which will give all data (lists)
+route.get("/",asyncwrap(async (req,res)=>{
+    const data = await listing.find();
+   
+    res.render('listings/index.ejs', {data})
+    
+}))
+
+// new listing add route
+route.get('/new',(req,res)=>{
+    res.render('listings/new.ejs');
+})
+
+route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
+    const newListing = new listing(req.body.new);
+    await newListing.save().then((res)=>{
+        console.log('Added');
+    }).catch((err)=>{
+        console.log(err);
+    })
+    res.redirect("/listing")
+}))
+
+// show route give info about perticular listing
+route.get("/:id",asyncwrap(async (req,res)=>{
+    let {id} = req.params;
+    const list = await listing.findById(id).populate('reviews');
+    
+    res.render('listings/show.ejs',{list}); 
+    
+}))
+
+// edit and Update route
+
+route.get("/:id/edit",asyncwrap(async (req,res)=>{
+    let {id} = req.params;
+    const list = await listing.findById(id);
+    res.render('listings/edit.ejs',{list})
+}))
+
+route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
+    let list = await req.body.new;
+    let {id} = req.params;
+    let obj = {
+        title: list.title,
+        description: list.description,
+        image: {
+                filename: "listingimage",
+                url: list.image,
+               },
+        price: list.price,
+        location: list.location,
+        country: list.country,
+     }
+    await listing.findByIdAndUpdate(id,obj).then((res)=>{
+        console.log("success");
+    }).catch((err)=>{
+        console.log(err);
+    })
+   
+    res.redirect(`/listing/${id}`)
+}))
+
+// delete route
+
+route.delete("/:id",asyncwrap(async (req,res)=>{
+    let {id} = req.params;
+    let deletedList = await listing.findByIdAndDelete(id);
+    res.redirect("/listing")
+}))
+
+module.exports = route;

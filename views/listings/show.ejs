@@ -62,7 +62,7 @@
              <div class=" rating"><i><%= obj.rating %> <% for(let i = 0;i<obj.rating;i++){ %><i class="fa-solid fa-star" style="color: rgb(201, 229, 244);"></i> <% } %></i></div>
             <div class="comment overflow-auto"><b><%= obj.comment %></b></div>
             <div class=" date"><%= obj.created_at %></div>
-            <form method="post" action="/listing/<%= list._id %>/reviews/<%=obj._id%>?_method=DELETE">
+            <form method="post" action="/listing/<%= list._id %>/review/<%=obj._id%>?_method=DELETE">
                <button class="btn btn-dark review-del">Delete</button>
             </form>
 
