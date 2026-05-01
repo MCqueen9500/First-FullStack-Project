@@ -143,9 +143,6 @@ app.delete('/listing/:id/reviews/:reviewId',async (req,res)=>{
 app.delete("/listing/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
-    await review.deleteMany({_id : {$in :deletedList.reviews}}).then(()=>{
-        console.log("deleted from reviews also bruhh");
-    })
     res.redirect("/listing")
 }))
 
