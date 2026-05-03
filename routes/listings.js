@@ -24,7 +24,6 @@ const SchemaValidate = (req,res,next)=>{
 // listing route which will give all data (lists)
 route.get("/",asyncwrap(async (req,res)=>{
     const data = await listing.find();
-   
     res.render('listings/index.ejs', {data})
     
 }))
@@ -41,6 +40,7 @@ route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
     }).catch((err)=>{
         console.log(err);
     })
+    req.flash('success','Listing added successfully');
     res.redirect("/listing")
 }))
 
@@ -80,7 +80,7 @@ route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
     }).catch((err)=>{
         console.log(err);
     })
-   
+    req.flash('success','Listing updated successfully');
     res.redirect(`/listing/${id}`)
 }))
 
@@ -89,6 +89,7 @@ route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
 route.delete("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
+    req.flash('success','Listing deleted successfully');
     res.redirect("/listing")
 }))
 

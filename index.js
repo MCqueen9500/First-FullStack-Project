@@ -8,7 +8,21 @@ const asyncwrap = require('./public/javascript/asyncwrap')
 const error1 = require("./public/javascript/error")
 const listings = require('./routes/listings')
 const reviews =  require('./routes/reviews')
+const session = require('express-session');
+const flash = require('connect-flash');
 
+const sessionOptions = {
+    secret: 'secretCode',
+    resave: false,
+    saveUninitialized: true,
+    cookie:{
+        httpOnly:true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    }
+}
+app.use(session(sessionOptions));
+app.use(flash());
 app.use(methodOverride("_method"))
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
@@ -26,6 +40,10 @@ app.listen(8080,()=>{
     console.log("server connected")
 });
 
+app.use((req,res,next)=>{
+        res.locals.successMsg = req.flash('success');
+    next();
+})
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);
 
@@ -39,7 +57,7 @@ app.use((req, res, next) => {
     next(new error1(404, "Page not found"));
 });
 app.use((err,req,res,next)=>{
-    let {status} = err;
-    console.log(err.message);
+    let {status = 500} = err;
+    console.log(status);
     res.status(status).render('listings/error.ejs',{err})
 }) 
