@@ -10,6 +10,9 @@ const listings = require('./routes/listings')
 const reviews =  require('./routes/reviews')
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./collections/user');
 
 const sessionOptions = {
     secret: 'secretCode',
@@ -23,6 +26,13 @@ const sessionOptions = {
 }
 app.use(session(sessionOptions));
 app.use(flash());
+//******************************** passport configuration**********************************************/
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+/******************************************************************************************************/
 app.use(methodOverride("_method"))
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
@@ -48,8 +58,14 @@ app.use((req,res,next)=>{
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);
 
-app.get("/",(req,res)=>{
-    res.send("hello");
+app.get("/demo",async (req,res)=>{
+    let a = new User({
+        email:"krushna@gmail.com",
+        username:"krushna"
+    })
+
+    let userRegistered = await User.register(a,"krushna123");
+    res.send(userRegistered);
 });
 //************************************all reviews routes*************************************** */
 app.use('/listing/:id/review',reviews);
