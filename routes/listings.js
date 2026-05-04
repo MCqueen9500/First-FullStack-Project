@@ -48,8 +48,14 @@ route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
 route.get("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id).populate('reviews');
+    if(!list){
+        req.flash('failure','Listing not found');
+        res.redirect("/listing");
+    }
+    else{
+        res.render('listings/show.ejs',{list}); 
+    }
     
-    res.render('listings/show.ejs',{list}); 
     
 }))
 
@@ -58,7 +64,14 @@ route.get("/:id",asyncwrap(async (req,res)=>{
 route.get("/:id/edit",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
-    res.render('listings/edit.ejs',{list})
+    if(!list){
+        req.flash('failure','Listing not found');
+        res.redirect("/listing");
+    }
+    else{
+        res.render('listings/edit.ejs',{list})
+    }
+    
 }))
 
 route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
@@ -89,8 +102,15 @@ route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
 route.delete("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
-    req.flash('success','Listing deleted successfully');
-    res.redirect("/listing")
+    if(!deletedList){
+        req.flash('failure','Listing not found');
+        res.redirect("/listing");
+    }
+    else{
+        req.flash('success','Listing deleted successfully');
+        res.redirect("/listing")
+    }
+    
 }))
 
 module.exports = route;

@@ -42,6 +42,7 @@ app.listen(8080,()=>{
 
 app.use((req,res,next)=>{
         res.locals.successMsg = req.flash('success');
+        res.locals.failureMsg = req.flash('failure');
     next();
 })
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
@@ -54,10 +55,11 @@ app.get("/",(req,res)=>{
 app.use('/listing/:id/review',reviews);
 
 app.use((req, res, next) => {
-    next(new error1(404, "Page not found"));
+    next(new error1(404, "Page not found"));  
 });
+
 app.use((err,req,res,next)=>{
     let {status = 500} = err;
     console.log(status);
-    res.status(status).render('listings/error.ejs',{err})
-}) 
+    res.status(status).render('listings/error.ejs', { err });
+});
