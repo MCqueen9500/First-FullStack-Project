@@ -231,3 +231,7 @@ body {
     align-items: center;
     height: 4.1rem;
 }
+
+.signup-login{
+    margin: 0px !important;
+}

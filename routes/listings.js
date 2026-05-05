@@ -7,6 +7,7 @@ const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullSt
 const path = require('path')
 const {reviewSchema} = require('../schema');
 const review = require("../collections/reviews");
+const {isLogin} = require('../middlware');
 
 
 const SchemaValidate = (req,res,next)=>{
@@ -29,7 +30,7 @@ route.get("/",asyncwrap(async (req,res)=>{
 }))
 
 // new listing add route
-route.get('/new',(req,res)=>{
+route.get('/new',isLogin,(req,res)=>{
     res.render('listings/new.ejs');
 })
 
@@ -61,7 +62,7 @@ route.get("/:id",asyncwrap(async (req,res)=>{
 
 // edit and Update route
 
-route.get("/:id/edit",asyncwrap(async (req,res)=>{
+route.get("/:id/edit",isLogin,asyncwrap(async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
     if(!list){
@@ -99,7 +100,7 @@ route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
 
 // delete route
 
-route.delete("/:id",asyncwrap(async (req,res)=>{
+route.delete("/:id",isLogin,asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
     if(!deletedList){

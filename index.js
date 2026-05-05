@@ -54,13 +54,18 @@ app.listen(8080,()=>{
 app.use((req,res,next)=>{
         res.locals.successMsg = req.flash('success');
         res.locals.failureMsg = req.flash('error');
+        res.locals.loginUser = req.user;
     next();
 })
+
+app.get('/',(req,res)=>{
+    console.log(req.isAuthenticated());
+    console.log(req.user);
+});
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);
 /*********************************Sign up and login Routes **************************************************************************************** */
 app.use(users);
-
 //************************************all reviews routes*************************************** */
 app.use('/listing/:id/review',reviews);
 
