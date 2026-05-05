@@ -49,7 +49,7 @@ route.get("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id).populate('reviews');
     if(!list){
-        req.flash('failure','Listing not found');
+        req.flash('error','Listing not found');
         res.redirect("/listing");
     }
     else{
@@ -65,7 +65,7 @@ route.get("/:id/edit",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     const list = await listing.findById(id);
     if(!list){
-        req.flash('failure','Listing not found');
+        req.flash('error','Listing not found');
         res.redirect("/listing");
     }
     else{
@@ -103,7 +103,7 @@ route.delete("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let deletedList = await listing.findByIdAndDelete(id);
     if(!deletedList){
-        req.flash('failure','Listing not found');
+        req.flash('error','Listing not found');
         res.redirect("/listing");
     }
     else{

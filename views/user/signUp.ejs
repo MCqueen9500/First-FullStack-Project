@@ -1,0 +1,41 @@
+<% layout('layouts/boilerplate') %>
+
+    <body>
+
+        <div class="row col-8 mx-auto">
+            <h3>Sign Up New User</h3>
+            <form method="POST" action="/signup" class="needs-validation" novalidate>
+                <div>
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" type="text" class="form-control" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter username
+                    </div>
+                </div>
+                <div>
+                    <label for="email" class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please Enter Email
+                    </div>
+                </div>
+                <div>
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please Enter Password
+                    </div>
+                </div>
+                <button class="btn btn-success">Sign Up</button>
+               
+                
+            </form>
+        </div>
+    </body>    

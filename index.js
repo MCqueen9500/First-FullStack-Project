@@ -13,6 +13,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./collections/user');
+const users = require('./routes/user');
 
 const sessionOptions = {
     secret: 'secretCode',
@@ -52,21 +53,14 @@ app.listen(8080,()=>{
 
 app.use((req,res,next)=>{
         res.locals.successMsg = req.flash('success');
-        res.locals.failureMsg = req.flash('failure');
+        res.locals.failureMsg = req.flash('error');
     next();
 })
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);
+/*********************************Sign up and login Routes **************************************************************************************** */
+app.use(users);
 
-app.get("/demo",async (req,res)=>{
-    let a = new User({
-        email:"krushna@gmail.com",
-        username:"krushna"
-    })
-
-    let userRegistered = await User.register(a,"krushna123");
-    res.send(userRegistered);
-});
 //************************************all reviews routes*************************************** */
 app.use('/listing/:id/review',reviews);
 
