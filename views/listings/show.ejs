@@ -1,6 +1,4 @@
 <% layout('layouts/boilerplate') %>
-
-
    <body>
 
       <div class="show-div">
@@ -29,7 +27,7 @@
             </div>
          </div>
          <br>
-
+         <% if(loginUser && loginUser._id.equals(list.owner._id)){%>
          <div class="btn-div">
             <a href="/listing/<%=list._id%>/edit" class="btn btn-dark change-btn">Edit Information</a>
             <br><br>
@@ -38,6 +36,8 @@
                <button class="btn btn-danger">Delet this Listing</button>
             </form>
          </div>
+         <% } %>
+
          <hr>
          <div class="col-4">
             <form action="/listing/<%= list._id %>/review" method="POST" class="needs-validation" novalidate>

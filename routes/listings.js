@@ -48,7 +48,8 @@ route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
 // show route give info about perticular listing
 route.get("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
-    const list = await listing.findById(id).populate('reviews');
+    const list = await listing.findById(id).populate('reviews').populate('owner');
+    console.log(list);
     if(!list){
         req.flash('error','Listing not found');
         res.redirect("/listing");
