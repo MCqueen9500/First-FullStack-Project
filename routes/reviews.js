@@ -6,6 +6,7 @@ const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullSt
 const path = require('path')
 const {reviewSchema} = require('../schema');
 const review = require("../collections/reviews");
+const {isLogin} = require('../middlware');
 
 const SchemaValidate_for_review = (req,res,next)=>{
     const result = reviewSchema.validate(req.body)
@@ -19,12 +20,14 @@ const SchemaValidate_for_review = (req,res,next)=>{
 
 //review route
 
-route.post('/',SchemaValidate_for_review,asyncwrap(async (req,res)=>{
+route.post('/',
+    SchemaValidate_for_review,
+    asyncwrap(async (req,res)=>{
     let {id} = req.params;
     let list = await listing.findById(id);
-    let rev1 = new review(req.body.review);
+    let rev1 = await new review(req.body.review);
+    rev1.created_by = req.user._id;
     list.reviews.push(rev1);
-
     await list.save()
     await rev1.save()
     res.redirect(`/listing/${id}`)

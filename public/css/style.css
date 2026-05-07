@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 
 }
 
@@ -117,15 +118,15 @@ body {
 /* show route css*/
 @media (min-width:750px){
     .show-card {
-    height: 28rem !important;
-    width: 30% !important;
+    height: auto !important;
+    width: 100% !important;
 }
 }
 
 @media (max-width:750px){
     .show-card {
-    height: 28rem !important;
-    width: 90% !important;
+    height: auto !important;
+    width: 100% !important;
 }
 }
 
@@ -151,6 +152,7 @@ body {
 
 .show-card img {
     width: 100% !important;
+    height: 18rem !important;
 }
 
 .img-div {
@@ -178,17 +180,18 @@ body {
 
 /* reviews styling */
 .show-reviews-contaner {
-    width: 75rem;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin: auto;
+    justify-content:space-between;
 }
 
 .show-reviews {
-    width: 30rem;
+    width: 48% !important;
     border: 0.1px solid rgb(194, 191, 191);
     border-radius: 1rem;
-    margin: 1.5rem;
+    margin: 1.5rem 0 1.5rem 0 !important;
     display: flex;
     flex-direction: column;
 }

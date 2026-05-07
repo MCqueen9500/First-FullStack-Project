@@ -1,3 +1,5 @@
+const listing = require('./collections/listing');
+
 module.exports.isLogin = (req,res,next)=>{
     if(!req.isAuthenticated()){
         req.flash('error','You are not logged in');
@@ -15,4 +17,16 @@ module.exports.orgUrl = (req,res,next)=>{
         res.locals.orgUrl = req.session.url;
     }
     next();
+}
+
+module.exports.isUser = async (req,res,next)=>{
+    let {id} = req.params;
+    let list = await listing.findById(id);
+    if(!list.owner.equals(req.user._id)){
+        req.flash('error','You are not the ownwer of the listing');
+        res.redirect(`/listing/${id}`);
+    }
+    else{
+        next();
+    }
 }

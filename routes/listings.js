@@ -7,7 +7,7 @@ const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullSt
 const path = require('path')
 const {reviewSchema} = require('../schema');
 const review = require("../collections/reviews");
-const {isLogin} = require('../middlware');
+const {isLogin , isUser} = require('../middlware');
 
 
 const SchemaValidate = (req,res,next)=>{
@@ -36,6 +36,8 @@ route.get('/new',isLogin,(req,res)=>{
 
 route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
     const newListing = new listing(req.body.new);
+    newListing.owner = req.user._id;
+    console.log(newListing);
     await newListing.save().then((res)=>{
         console.log('Added');
     }).catch((err)=>{
@@ -76,7 +78,10 @@ route.get("/:id/edit",isLogin,asyncwrap(async (req,res)=>{
     
 }))
 
-route.put('/:id',SchemaValidate,asyncwrap(async (req,res)=>{
+route.put('/:id',
+    isLogin,
+    isUser,
+    SchemaValidate,asyncwrap(async (req,res)=>{
     let list = await req.body.new;
     let {id} = req.params;
     let obj = {
