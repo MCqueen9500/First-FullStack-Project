@@ -65,6 +65,7 @@
          
          <% for (let obj of list.reviews) { %>
          <div class="show-reviews">
+            <p style="margin: 0 0 0.3rem 0;">Created By:<%= obj.created_by.username%></p>
              <div class=" rating"><i><%= obj.rating %> <% for(let i = 0;i<obj.rating;i++){ %><i class="fa-solid fa-star" style="color: rgb(201, 229, 244);"></i> <% } %></i></div>
             <div class="comment overflow-auto"><b><%= obj.comment %></b></div>
             

@@ -194,6 +194,7 @@ body {
     margin: 1.5rem 0 1.5rem 0 !important;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
 }
 
 @media (max-width:750px) {
@@ -207,12 +208,13 @@ body {
     position: relative;
     top: 0%;
     left: 0%;
-    padding-left: 1rem;
+    margin: 0.15rem 0 0.15rem 0 !important;
 }
 
 .comment {
-    height: 4rem;
-    padding: 0.5rem;
+    max-height: 4rem;
+    overflow: auto;
+    margin: 0.15rem 0 0.15rem 0 !important;
 }
 
 .date {
@@ -223,7 +225,8 @@ body {
 }
 
 .review-del{
-    margin:1rem !important;
+    margin:0rem !important;
+    margin: 0.15rem 0 0.15rem 0 !important;
 }
 
 

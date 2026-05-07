@@ -6,7 +6,7 @@ const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullSt
 const path = require('path')
 const {reviewSchema} = require('../schema');
 const review = require("../collections/reviews");
-const {isLogin} = require('../middlware');
+const {isLogin,isUser,isReviewUser} = require('../middlware');
 
 const SchemaValidate_for_review = (req,res,next)=>{
     const result = reviewSchema.validate(req.body)
@@ -20,7 +20,7 @@ const SchemaValidate_for_review = (req,res,next)=>{
 
 //review route
 
-route.post('/',
+route.post('/',isLogin,
     SchemaValidate_for_review,
     asyncwrap(async (req,res)=>{
     let {id} = req.params;
@@ -36,7 +36,7 @@ route.post('/',
 
 // review delete route
 
-route.delete('/:reviewId',asyncwrap(async (req,res)=>{
+route.delete('/:reviewId',isLogin,isReviewUser,asyncwrap(async (req,res)=>{
     let {id,reviewId} = req.params;
     await listing.findByIdAndUpdate(id,{$pull : {reviews : reviewId}});
     await review.findByIdAndDelete(reviewId);

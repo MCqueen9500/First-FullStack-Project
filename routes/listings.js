@@ -50,8 +50,10 @@ route.post("/",SchemaValidate,asyncwrap(async (req,res)=>{
 // show route give info about perticular listing
 route.get("/:id",asyncwrap(async (req,res)=>{
     let {id} = req.params;
-    const list = await listing.findById(id).populate('reviews').populate('owner');
-    console.log(list);
+    const list = await listing.findById(id)
+    .populate({path:'reviews',populate:{path:'created_by'}})// use this for nested population of reviews and owner of reviews
+    .populate('owner');
+
     if(!list){
         req.flash('error','Listing not found');
         res.redirect("/listing");
