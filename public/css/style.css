@@ -65,13 +65,16 @@ body {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .card {
     margin: 0.75rem !important;
     height: 25rem !important;
     border: none !important;
+}
+.card-list{
+    width: 21rem !important;
 }
 
 .card-img-top {
@@ -93,10 +96,9 @@ body {
     html {
         font-size: 12px;
     }
-    .img-div{
+    /* .img-div{
         width:70% !important;
-    }
-
+    } */
 }
 
 .card-list:hover {
@@ -156,8 +158,10 @@ body {
 }
 
 .img-div {
-    display: flex;
-    justify-content: center;
+    width: 100% !important;
+    height: 18rem !important;
+    border-radius: 1rem;
+    background-size:cover;
 }
 
 .description {
