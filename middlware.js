@@ -1,5 +1,6 @@
 const listing = require('./collections/listing');
 const review = require('./collections/reviews');
+const {listingSchema , reviewSchema} = require('./schema');
 
 module.exports.isLogin = (req,res,next)=>{
     if(!req.isAuthenticated()){
@@ -41,5 +42,25 @@ module.exports.isReviewUser = async (req,res,next)=>{
     }
     else{
         next();
+    }
+}
+
+module.exports.SchemaValidate = (req,res,next)=>{
+    const result = listingSchema.validate(req.body)
+    if(result.error){
+        throw new error1(500,result.error);
+    }
+    else{
+         next();
+    }
+}
+
+module.exports.SchemaValidate_for_review = (req,res,next)=>{
+    const result = reviewSchema.validate(req.body)
+    if(result.error){
+        throw new error1(500,result.error);
+    }
+    else{
+         next();
     }
 }

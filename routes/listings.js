@@ -1,23 +1,13 @@
 const express = require('express');
 const route = express.Router();
-const {listingSchema} = require('../schema');
 const error1 = require("../public/javascript/error")
 const asyncwrap = require('../public/javascript/asyncwrap')
 const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/listing');
 const path = require('path')
 const {reviewSchema} = require('../schema');
 const review = require("../collections/reviews");
-const {isLogin , isUser} = require('../middlware');
+const {isLogin , isUser ,SchemaValidate} = require('../middlware');
 const listingController = require('../controllers/listing');
-const SchemaValidate = (req,res,next)=>{
-    const result = listingSchema.validate(req.body)
-    if(result.error){
-        throw new error1(500,result.error);
-    }
-    else{
-         next();
-    }
-}
 
 
 // listing route which will give all data (lists)
