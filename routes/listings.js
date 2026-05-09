@@ -11,31 +11,27 @@ const listingController = require('../controllers/listing');
 
 
 // listing route which will give all data (lists)
-route.get("/",asyncwrap(listingController.listings))
+route.route('/')
+.get(asyncwrap(listingController.listings))
+.post(SchemaValidate,asyncwrap(listingController.newListingPost))
+
 
 // new listing add route
 route.get('/new',isLogin,listingController.newListingGet)
 
-route.post("/",SchemaValidate,asyncwrap(listingController.newListingPost))
-
 // show route give info about perticular listing
-route.get("/:id",asyncwrap(listingController.showListing))
-
-// edit and Update route
-
-route.get("/:id/edit",isLogin,asyncwrap(listingController.editListingGet))
-
-route.put('/:id',
+route.route('/:id')
+.get(asyncwrap(listingController.showListing))
+.put(
     isLogin,
     isUser,
     SchemaValidate,
     asyncwrap(listingController.editListingPost))
-
-// delete route
-
-route.delete("/:id",
+.delete(
     isLogin,
     isUser,
     asyncwrap(listingController.deleteListing))
+
+route.get("/:id/edit",isLogin,asyncwrap(listingController.editListingGet))
 
 module.exports = route;
