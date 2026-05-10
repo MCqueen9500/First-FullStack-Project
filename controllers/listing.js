@@ -9,8 +9,12 @@ module.exports.newListingGet = (req,res)=>{
     res.render('listings/new.ejs');
 }
 module.exports.newListingPost = async (req,res)=>{
+    let url = req.file.path;
+    let filename = req.file.filename;
     const newListing = new listing(req.body.new);
     newListing.owner = req.user._id;
+    newListing.image.url = url;
+    newListing.image.filename = filename;
     console.log(newListing);
     await newListing.save().then((res)=>{
         console.log('Added');

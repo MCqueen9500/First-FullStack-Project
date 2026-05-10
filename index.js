@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const mongoose = require("mongoose");
 const path = require('path')
 const app = express();
@@ -15,8 +16,6 @@ const LocalStrategy = require('passport-local');
 const User = require('./collections/user');
 const users = require('./routes/user');
 const multer = require('multer');
-const upload = multer({dest:'uploads/'});
-
 const sessionOptions = {
     secret: 'secretCode',
     resave: false,
@@ -61,8 +60,6 @@ app.use((req,res,next)=>{
 })
 
 app.get('/',(req,res)=>{
-    console.log(req.isAuthenticated());
-    console.log(req.user);
 });
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);

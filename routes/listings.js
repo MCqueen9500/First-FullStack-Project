@@ -9,14 +9,14 @@ const review = require("../collections/reviews");
 const {isLogin , isUser ,SchemaValidate} = require('../middlware');
 const listingController = require('../controllers/listing');
 const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+const {storage} = require('../cloudinary')
+const upload = multer({storage});
 
 // listing route which will give all data (lists)
 route.route('/')
 .get(asyncwrap(listingController.listings))
-.post(/*SchemaValidate,asyncwrap(listingController.newListingPost)*/upload.single('new[file]'),(req,res)=>{
-    console.log(req.file)
-})
+.post(upload.single('new[file]'),SchemaValidate,asyncwrap(listingController.newListingPost)
+)
 
 
 // new listing add route
