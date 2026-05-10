@@ -1,6 +1,7 @@
 const listing = require('./collections/listing');
 const review = require('./collections/reviews');
 const {listingSchema , reviewSchema} = require('./schema');
+const error1 = require('./public/javascript/error')
 
 module.exports.isLogin = (req,res,next)=>{
     if(!req.isAuthenticated()){

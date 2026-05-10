@@ -4,7 +4,7 @@
 
         <div class="row col-8 mx-auto">
             <h3>Add New Plot</h3>
-            <form method="POST" action="/listing" class="needs-validation" novalidate>
+            <form method="POST" action="/listing" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div>
                     <label for="title" class="form-label">Title</label>
                     <input name="new[title]" type="text" placeholder="Enter Type" class="form-control" required>
@@ -24,8 +24,8 @@
                     </div>
                 </div>
                 <div>
-                    <label for="new[image]" class="form-label">Enter Image URL</label>
-                    <input name="new[image]" type="text" placeholder="Enter URL" class="form-control">
+                    <label for="new[file]" class="form-label">Enter Image</label>
+                    <input name="new[file]" type="file" placeholder="Select File" class="form-control">
                 </div>
                 <div class="row">
                     <div class="col-md-4">
