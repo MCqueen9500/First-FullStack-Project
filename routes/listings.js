@@ -28,6 +28,7 @@ route.route('/:id')
 .put(
     isLogin,
     isUser,
+    upload.single('new[file]'),                                                     
     SchemaValidate,
     asyncwrap(listingController.editListingPost))
 .delete(

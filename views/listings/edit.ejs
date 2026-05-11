@@ -3,7 +3,7 @@
     <body>
         <div class="row col-8 mx-auto">
             <h3>Edit Information</h3>
-            <form method="POST" action="/listing/<%=list._id%>?_method=PUT" novalidate class="needs-validation">
+            <form method="POST" action="/listing/<%=list._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div>
                     <label for="title" class="form-label">Title</label>
                     <input name="new[title]" type="text" value="<%=list.title%>" class="form-control" required>
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div>
-                    <label for="new[image]" class="form-label">Enter Image URL</label>
-                    <input name="new[image]" type="text" value="<%=list.image.url%>" class="form-control" required>
+                    <label for="new[file]" class="form-label">Enter Image URL</label>
+                    <input name="new[file]" type="file" value="<%=list.image.url%>" class="form-control" >
                     <div class="invalid-feedback">
                         Please Enter Image.
                     </div>

@@ -54,19 +54,16 @@ module.exports. editListingGet = async (req,res)=>{
 }
 module.exports.editListingPost = async (req,res)=>{
     let list = await req.body.new;
+    if(req.file){
+        let url = req.file.path;
+        let filename = req.file.filename;
+        list.image = {
+            url:url,
+            filename:filename
+        }
+    }
     let {id} = req.params;
-    let obj = {
-        title: list.title,
-        description: list.description,
-        image: {
-                filename: "listingimage",
-                url: list.image,
-               },
-        price: list.price,
-        location: list.location,
-        country: list.country,
-     }
-    await listing.findByIdAndUpdate(id,obj).then((res)=>{
+    await listing.findByIdAndUpdate(id,list).then((res)=>{
         console.log("success");
     }).catch((err)=>{
         console.log(err);
