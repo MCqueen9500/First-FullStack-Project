@@ -245,3 +245,8 @@ body {
 .signup-login{
     margin: 0px !important;
 }
+
+#map{
+    height: 100%;
+    border-radius:1.5rem;
+}

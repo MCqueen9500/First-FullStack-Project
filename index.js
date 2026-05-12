@@ -77,3 +77,5 @@ app.use((err,req,res,next)=>{
     console.log(status);
     res.status(status).render('listings/error.ejs', { err });
 });
+
+
