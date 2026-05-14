@@ -1,4 +1,7 @@
 {
+  "engines":{
+    "node":"24.14.0"
+  },
   "name": "first-fullstack-project",
   "version": "1.0.0",
   "description": "Creating my first fullstack project...using all the concepts i learn",
