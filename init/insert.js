@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
-const data = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/init/data.js')
-const listing = require('C:/Users/Krushna/OneDrive/Desktop/Project1/First-FullStack-Project/collections/listing');
+const data = require('./data.js')
+const listing = require('../collections/listing');
 
 
 main().then(()=>{
