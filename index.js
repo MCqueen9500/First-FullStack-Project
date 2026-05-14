@@ -10,14 +10,29 @@ const error1 = require("./public/javascript/error")
 const listings = require('./routes/listings')
 const reviews =  require('./routes/reviews')
 const session = require('express-session');
+const mongoStore = require('../lib/connect-mongodb')
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./collections/user');
 const users = require('./routes/user');
 const multer = require('multer');
+
+const store = new mongoStore.create({
+    mongoUrl:process.env.MONGO_URL,
+    crypto:{
+        secret:Process.env.SECRET
+    },
+    touchAfter: 24*3600
+})
+
+store.on("error",()=>{
+    console.log('error occurs');
+})
+
 const sessionOptions = {
-    secret: 'secretCode',
+    store:store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie:{
@@ -38,19 +53,11 @@ passport.deserializeUser(User.deserializeUser());
 app.use(methodOverride("_method"))
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
-main().then(() => console.log("DB Connected"));
+
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,'public')));
 app.engine('ejs',ejsMate)
 
-
-async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/plot_dekho');
-}
-
-app.listen(8080,()=>{
-    console.log("server connected")
-});
 
 app.use((req,res,next)=>{
         res.locals.successMsg = req.flash('success');
@@ -60,6 +67,7 @@ app.use((req,res,next)=>{
 })
 
 app.get('/',(req,res)=>{
+    res.redirect('/listing');
 });
 //******************************* all listing routes in one line  ** using express.Routes ********************************************
 app.use('/listing',listings);
@@ -77,5 +85,20 @@ app.use((err,req,res,next)=>{
     console.log(status);
     res.status(status).render('listings/error.ejs', { err });
 });
+
+async function main(){
+    try {
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log("DB Connected");
+        app.listen(8080,()=>{
+            console.log("server connected on port 8080");
+        });
+    } catch (err) {
+        console.error("DB Connection Error:", err.message);
+        process.exit(1);
+    }
+}
+
+main();
 
 

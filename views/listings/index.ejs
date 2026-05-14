@@ -1,5 +1,19 @@
 <% layout('layouts/boilerplate') %>
-    <h3>All Listing</h3>
+   <div class="index-icons-contaner">
+    <div class="info-icon"><div class="index-icon"><i class="fa-regular fa-house"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">family</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-mountain"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">Hills</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-mountain-city"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">hill city</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-person-swimming"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">beach</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-hill-avalanche"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">advanture</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-fire"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">Trending</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-cloud"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">Peace</p></div>
+    <div class="info-icon"><div class="index-icon"><i class="fa-solid fa-earth-americas"></i></div><p style="font-size: 0.8rem; margin-bottom: 0;">World wide</p></div>
+
+    <div class="form-check form-switch form-check-reverse">
+  <input id="gst" class="form-check-input" type="checkbox" id="switchCheckReverse">
+  <label class="form-check-label" for="switchCheckReverse">See GST Per Listing</label>
+</div>
+   </div>
     <!-- <form method="get" action="/listing/new">
         <button>New +</button>
     </form> -->
@@ -12,10 +26,31 @@
                         <p class="card-text"> <b>
                                 <%= el.title %>
                             </b> <br>
-                            &#x20B9; <%= el.price ? el.price.toLocaleString("en-IN") : "N/A" %>
+                            <div>
+                                 &#x20B9; <%= el.price ? el.price.toLocaleString("en-IN") : "N/A" %> <div class="gst-div"><b>+18%</b></div>
+                            </div>
                         </p>
                     </div>
                 </div>
             </a>
             <% } %>
     </div>
+
+    <script>
+        let btns = document.querySelector("#gst");
+        let gst = document.querySelectorAll(".gst-div")
+        console.log(gst)
+        
+            btns.addEventListener('click',(event)=>{
+                for (btn of gst){
+                    if(btn.style.display == "none"){
+                         btn.style.display = "inline";
+                    }
+                    else{
+                        btn.style.display = "none";
+                    }
+           
+             }
+        })
+       
+    </script>
