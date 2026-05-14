@@ -10,7 +10,7 @@ const error1 = require("./public/javascript/error")
 const listings = require('./routes/listings')
 const reviews =  require('./routes/reviews')
 const session = require('express-session');
-const mongoStore = require('../lib/connect-mongodb')
+const mongoStore = require('connect-mongo')
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -18,10 +18,10 @@ const User = require('./collections/user');
 const users = require('./routes/user');
 const multer = require('multer');
 
-const store = new mongoStore.create({
+const store = new mongoStore({
     mongoUrl:process.env.MONGO_URL,
     crypto:{
-        secret:Process.env.SECRET
+        secret:process.env.SECRET
     },
     touchAfter: 24*3600
 })
