@@ -18,7 +18,7 @@ const User = require('./collections/user');
 const users = require('./routes/user');
 const multer = require('multer');
 
-const store = new MongoStore({
+const store = new MongoStore.create({
     mongoUrl:process.env.MONGO_URL,
     crypto:{
         secret:process.env.SECRET
