@@ -22,18 +22,15 @@ const multer = require('multer');
 
 const store = MongoStore.create({
     mongoUrl:process.env.MONGO_URL,
-    crypto:{
-        secret:process.env.SECRET
-    },
-    touchAfter: 24*3600
-})
+    touchAfter: 24*3600,
+});
 
 store.on("error",()=>{
     console.log('error occurs');
-})
+});
 
 const sessionOptions = {
-    store:store,
+    store,
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
@@ -43,6 +40,22 @@ const sessionOptions = {
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     }
 }
+app.listen(8080,()=>{
+            console.log("server connected on port 8080");
+        });
+
+async function main(){
+    try {
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log("DB Connected");
+        
+    } catch (err) {
+        console.error("DB Connection Error:", err.message);
+    }
+}
+
+main();
+
 app.use(session(sessionOptions));
 app.use(flash());
 //******************************** passport configuration**********************************************/
@@ -64,7 +77,7 @@ app.engine('ejs',ejsMate)
 app.use((req,res,next)=>{
         res.locals.successMsg = req.flash('success');
         res.locals.failureMsg = req.flash('error');
-        res.locals.loginUser = req.user;
+        res.locals.loginUser = req.user || null;
     next();
 })
 
@@ -85,22 +98,10 @@ app.use((req, res, next) => {
 app.use((err,req,res,next)=>{
     let {status = 500} = err;
     console.log(status);
+    console.log(err)
     res.status(status).render('listings/error.ejs', { err });
 });
 
-async function main(){
-    try {
-        await mongoose.connect(process.env.MONGO_URL);
-        console.log("DB Connected");
-        app.listen(8080,()=>{
-            console.log("server connected on port 8080");
-        });
-    } catch (err) {
-        console.error("DB Connection Error:", err.message);
-        process.exit(1);
-    }
-}
 
-main();
 
 
